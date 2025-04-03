@@ -2,23 +2,11 @@
   {
     "name": "Character One",
     "season": "Season 1",
-    "traits": ["Arcane Mastery", "Stealth"],
     "description": "Description for character one."
-    "images": [
-    "images/Skill-Arcane-Mastery-1.webp",
-    "images/Skill-Stealth.webp",
-    "images/Skill-Stealth.webp"
-  ]
   },
   {
     "name": "Character Two",
     "season": "Season 2",
-    "traits": ["Stealth", "Arcane Mastery"],
     "description": "Description for character two."
-    "images": [
-    "images/Skill-Arcane-Mastery-1.webp",
-    "images/Skill-Stealth.webp",
-    "images/Skill-Stealth.webp"
-  ]
   }
 ]
