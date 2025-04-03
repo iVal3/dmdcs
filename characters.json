@@ -1,14 +1,22 @@
-{
-  "characters": [
-    {
-      "name": "Character One",
-      "season": "Season 1",
-      "description": "This is a description for character one."
-    },
-    {
-      "name": "Character Two",
-      "season": "Season 2",
-      "description": "This is a description for character two."
-    }
-  ]
-}
+[
+  {
+    "name": "Character One",
+    "season": "Season 1",
+    "description": "This is a description for character one. They are known for their bravery and skill."
+  },
+  {
+    "name": "Character Two",
+    "season": "Season 2",
+    "description": "This is a description for character two. They have unique abilities and a mysterious past."
+  },
+  {
+    "name": "Character Three",
+    "season": "Season 3",
+    "description": "This is a description for character three. They excel in stealth and strategy."
+  },
+  {
+    "name": "Character Four",
+    "season": "Season 4",
+    "description": "This is a description for character four. Known for their powerful magic."
+  }
+]
