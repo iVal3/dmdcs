@@ -12,7 +12,11 @@
   {
     "name": "Character Two",
     "season": "Season 2",
-     "traits": ["Stealth", "Arcane Mastery"],
+    "traits": ["Stealth", "Arcane Mastery"],
     "description": "Description for character two."
+    "images": [
+    "images/Skill-Arcane-Mastery-1.webp",
+    "images/Skill-Stealth.webp"
+  ]
   }
 ]
