@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: main  # or master, depending on your default branch
+
+media_folder: "static/img"    # folder for uploaded images (adjust if needed)
+public_folder: "/img"
+
+collections:
+  - name: "characters"
+    label: "Characters"
+    files:
+      - file: "data/characters.json"
+        label: "Character Data"
+        name: "characters"
+        fields:
+          - label: "Characters"
+            name: "characters"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Season", name: "season", widget: "string" }
+              - { label: "Box", name: "box", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
