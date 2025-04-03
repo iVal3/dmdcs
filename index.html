@@ -22,14 +22,36 @@
       max-width: 400px;
       font-size: 1rem;
     }
-    #seasonFilters {
+    /* Collapsible styling */
+    .collapsible {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
       text-align: center;
-      margin: 20px;
-    }
-    #seasonFilters label {
-      margin: 0 10px;
+      border: none;
+      border-radius: 5px;
       font-size: 1rem;
+      margin-bottom: 10px;
     }
+    .active, .collapsible:hover {
+      background-color: #0056b3;
+    }
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f1f1f1;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .content label {
+      display: block;
+      margin: 10px 0;
+    }
+    /* Character display styling */
     .character {
       background-color: #fff;
       border: 1px solid #ddd;
@@ -51,16 +73,14 @@
   
   <!-- Collapsible Tab for Season Filters -->
   <button type="button" class="collapsible">Season Filters</button>
-  <div id="seasonFilters">
+  <div class="content" id="seasonFilters">
     <label><input type="checkbox" value="Season 1" onchange="applyFilters()"> Season 1</label>
     <label><input type="checkbox" value="Season 2" onchange="applyFilters()"> Season 2</label>
-    <label><input type="checkbox" value="Unspeakable" onchange="applyFilters()"> Unspeakable</label>
     <label><input type="checkbox" value="Season 3" onchange="applyFilters()"> Season 3</label>
     <label><input type="checkbox" value="Season 4" onchange="applyFilters()"> Season 4</label>
-    <label><input type="checkbox" value="Unknowable" onchange="applyFilters()"> Unknowable</label>
   </div>
   
-  <!-- Container for character list -->
+  <!-- Container for Character List -->
   <div id="characterList"></div>
 
   <script>
