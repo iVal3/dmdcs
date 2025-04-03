@@ -2,11 +2,13 @@
   {
     "name": "Character One",
     "season": "Season 1",
+    "traits": ["Arcane Mastery", "Stealth"],
     "description": "Description for character one."
   },
   {
     "name": "Character Two",
     "season": "Season 2",
+     "traits": ["Stealth", "Arcane Mastery"],
     "description": "Description for character two."
   }
 ]
