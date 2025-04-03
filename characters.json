@@ -6,6 +6,7 @@
     "description": "Description for character one."
     "images": [
     "images/Skill-Arcane-Mastery-1.webp",
+    "images/Skill-Stealth.webp",
     "images/Skill-Stealth.webp"
   ]
   },
@@ -16,6 +17,7 @@
     "description": "Description for character two."
     "images": [
     "images/Skill-Arcane-Mastery-1.webp",
+    "images/Skill-Stealth.webp",
     "images/Skill-Stealth.webp"
   ]
   }
