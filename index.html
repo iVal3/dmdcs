@@ -22,14 +22,36 @@
       max-width: 400px;
       font-size: 1rem;
     }
-    #seasonFilters {
+    /* Collapsible styling */
+    .collapsible {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
       text-align: center;
-      margin: 20px;
-    }
-    #seasonFilters label {
-      margin: 0 10px;
+      border: none;
+      border-radius: 5px;
       font-size: 1rem;
+      margin-bottom: 10px;
     }
+    .active, .collapsible:hover {
+      background-color: #0056b3;
+    }
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f1f1f1;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .content label {
+      display: block;
+      margin: 10px 0;
+    }
+    /* Character display styling */
     .character {
       background-color: #fff;
       border: 1px solid #ddd;
@@ -49,31 +71,46 @@
   <!-- Search Input -->
   <input type="text" id="search" placeholder="Search characters..." onkeyup="applyFilters()">
   
-  <!-- Season Filters -->
-  <div id="seasonFilters">
+  <!-- Collapsible Tab for Season Filters -->
+  <button type="button" class="collapsible">Season Filters</button>
+  <div class="content" id="seasonFilters">
     <label><input type="checkbox" value="Season 1" onchange="applyFilters()"> Season 1</label>
     <label><input type="checkbox" value="Season 2" onchange="applyFilters()"> Season 2</label>
     <label><input type="checkbox" value="Season 3" onchange="applyFilters()"> Season 3</label>
     <label><input type="checkbox" value="Season 4" onchange="applyFilters()"> Season 4</label>
   </div>
   
-  <!-- Container for character list -->
+  <!-- Container for Character List -->
   <div id="characterList"></div>
 
   <script>
+    // Collapsible logic: toggle the display of the season filters
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } 
+      });
+    }
+
     // Global array to store characters
     let characters = [];
 
-    // Load character data from characters.json
+    // Fetch character data from characters.json
     fetch('characters.json')
       .then(response => response.json())
       .then(data => {
         characters = data;
-        applyFilters(); // Display characters after loading data
+        applyFilters(); // Display characters once data is loaded
       })
       .catch(error => console.error('Error loading character data:', error));
 
-    // Function to display characters on the page
+    // Function to display characters
     function displayCharacters(list) {
       const container = document.getElementById('characterList');
       container.innerHTML = '';
@@ -89,17 +126,17 @@
       });
     }
 
-    // Function to apply filters based on search text and season checkboxes
+    // Function to apply search and season filters
     function applyFilters() {
       const query = document.getElementById('search').value.toLowerCase();
-      // Get checked season values
+      // Get checked season checkboxes
       const checkedBoxes = Array.from(document.querySelectorAll('#seasonFilters input[type="checkbox"]:checked'));
       const selectedSeasons = checkedBoxes.map(cb => cb.value);
       
-      // Filter characters based on search query and selected seasons.
-      // If no season checkboxes are selected, don't filter by season.
+      // Filter characters based on query and selected season(s)
       const filtered = characters.filter(character => {
         const matchesQuery = character.name.toLowerCase().includes(query);
+        // If no season is selected, include all seasons.
         const matchesSeason = selectedSeasons.length === 0 || selectedSeasons.includes(character.season);
         return matchesQuery && matchesSeason;
       });
