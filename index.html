@@ -52,6 +52,7 @@
   
   <!-- Dropdown Filters -->
   <div class="filter-container">
+    <!-- Season Dropdown -->
     <label for="seasonFilter">Season:</label>
     <select id="seasonFilter" onchange="applyFilters()">
       <option value="">All Seasons</option>
@@ -63,8 +64,20 @@
       <option value="Unknowable">Unknowable</option>
     </select>
     
-    <label for="traitFilter">Common Traits:</label>
-    <select id="traitFilter" onchange="applyFilters()">
+    <!-- Common Traits Dropdowns -->
+    <label for="traitFilter1">Trait 1:</label>
+    <select id="traitFilter1" onchange="applyFilters()">
+      <option value="">All Traits</option>
+      <option value="Arcane Mastery">Arcane Mastery</option>
+      <option value="Brawling">Brawling</option>
+      <option value="Marksman">Marksman</option>
+      <option value="Stealth">Stealth</option>
+      <option value="Swiftness">Swiftness</option>
+      <option value="Toughness">Toughness</option>
+    </select>
+    
+    <label for="traitFilter2">Trait 2:</label>
+    <select id="traitFilter2" onchange="applyFilters()">
       <option value="">All Traits</option>
       <option value="Arcane Mastery">Arcane Mastery</option>
       <option value="Brawling">Brawling</option>
@@ -101,7 +114,7 @@
         div.innerHTML = `
           <h2>${character.name}</h2>
           <p><strong>Season:</strong> ${character.season}</p>
-          <p><strong>Common Trait:</strong> ${character.trait}</p>
+          <p><strong>Traits:</strong> ${character.traits.join(', ')}</p>
           <p>${character.description}</p>
         `;
         container.appendChild(div);
@@ -112,13 +125,16 @@
     function applyFilters() {
       const query = document.getElementById('search').value.toLowerCase();
       const selectedSeason = document.getElementById('seasonFilter').value;
-      const selectedTrait = document.getElementById('traitFilter').value;
+      const selectedTrait1 = document.getElementById('traitFilter1').value;
+      const selectedTrait2 = document.getElementById('traitFilter2').value;
       
       const filtered = characters.filter(character => {
         const matchesQuery = character.name.toLowerCase().includes(query);
         const matchesSeason = !selectedSeason || character.season === selectedSeason;
-        const matchesTrait = !selectedTrait || character.trait === selectedTrait;
-        return matchesQuery && matchesSeason && matchesTrait;
+        // Check if traits exist, and if selected trait(s) are included in the character's traits array
+        const matchesTrait1 = !selectedTrait1 || (character.traits && character.traits.includes(selectedTrait1));
+        const matchesTrait2 = !selectedTrait2 || (character.traits && character.traits.includes(selectedTrait2));
+        return matchesQuery && matchesSeason && matchesTrait1 && matchesTrait2;
       });
       
       displayCharacters(filtered);
