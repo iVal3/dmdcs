@@ -1,14 +1,14 @@
 [
   {
-    "name": "Character One",
+    "name": "Lord Adam Benchley",
     "season": "Season 1",
-    "traits": ["Arcane Mastery", "Stealth"],
-    "description": "Description for character one."
+    "traits": ["Marksman", "Toughness"],
+    "description": "Fueled by Madness – Gains bonuses when hitting an insanity threshold."
   },
   {
-    "name": "Character Two",
-    "season": "Season 2",
-    "traits": ["Arcane Mastery", "Stealth"],
-    "description": "Description for character two."
+    "name": "Ahmed Yasin",
+    "season": "Season 1",
+    "traits": ["Stealth", "Arcane Mastery"],
+    "description": "Healing Prayer – allows healing of stress or health to self or other investigators"
   }
 ]
