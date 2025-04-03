@@ -22,36 +22,15 @@
       max-width: 400px;
       font-size: 1rem;
     }
-    /* Collapsible styling */
-    .collapsible {
-      background-color: #007BFF;
-      color: white;
-      cursor: pointer;
-      padding: 10px;
-      width: 100%;
+    .filter-container {
       text-align: center;
-      border: none;
-      border-radius: 5px;
+      margin: 20px;
+    }
+    .filter-container select {
+      margin: 0 10px;
+      padding: 10px;
       font-size: 1rem;
-      margin-bottom: 10px;
     }
-    .active, .collapsible:hover {
-      background-color: #0056b3;
-    }
-    .content {
-      padding: 0 18px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      background-color: #f1f1f1;
-      margin-bottom: 20px;
-      border-radius: 5px;
-    }
-    .content label {
-      display: block;
-      margin: 10px 0;
-    }
-    /* Character display styling */
     .character {
       background-color: #fff;
       border: 1px solid #ddd;
@@ -71,33 +50,35 @@
   <!-- Search Input -->
   <input type="text" id="search" placeholder="Search characters..." onkeyup="applyFilters()">
   
-  <!-- Collapsible Tab for Season Filters -->
-  <button type="button" class="collapsible">Season Filters</button>
-  <div class="content" id="seasonFilters">
-    <label><input type="checkbox" value="Season 1" onchange="applyFilters()"> Season 1</label>
-    <label><input type="checkbox" value="Season 2" onchange="applyFilters()"> Season 2</label>
-    <label><input type="checkbox" value="Season 3" onchange="applyFilters()"> Season 3</label>
-    <label><input type="checkbox" value="Season 4" onchange="applyFilters()"> Season 4</label>
+  <!-- Dropdown Filters -->
+  <div class="filter-container">
+    <label for="seasonFilter">Season:</label>
+    <select id="seasonFilter" onchange="applyFilters()">
+      <option value="">All Seasons</option>
+      <option value="Season 1">Season 1</option>
+      <option value="Season 2">Season 2</option>
+      <option value="Unspeakable">Unspeakable</option>
+      <option value="Season 3">Season 3</option>
+      <option value="Season 4">Season 4</option>
+      <option value="Unknowable">Unknowable</option>
+    </select>
+    
+    <label for="traitFilter">Common Traits:</label>
+    <select id="traitFilter" onchange="applyFilters()">
+      <option value="">All Traits</option>
+      <option value="Arcane Mastery">Arcane Mastery</option>
+      <option value="Brawling">Brawling</option>
+      <option value="Marksman">Marksman</option>
+      <option value="Stealth">Stealth</option>
+      <option value="Swiftness">Swiftness</option>
+      <option value="Toughness">Toughness</option>
+    </select>
   </div>
   
   <!-- Container for Character List -->
   <div id="characterList"></div>
 
   <script>
-    // Collapsible logic: toggle the display of the season filters
-    var coll = document.getElementsByClassName("collapsible");
-    for (var i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight){
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-        } 
-      });
-    }
-
     // Global array to store characters
     let characters = [];
 
@@ -110,7 +91,7 @@
       })
       .catch(error => console.error('Error loading character data:', error));
 
-    // Function to display characters
+    // Function to display characters on the page
     function displayCharacters(list) {
       const container = document.getElementById('characterList');
       container.innerHTML = '';
@@ -120,25 +101,24 @@
         div.innerHTML = `
           <h2>${character.name}</h2>
           <p><strong>Season:</strong> ${character.season}</p>
+          <p><strong>Common Trait:</strong> ${character.trait}</p>
           <p>${character.description}</p>
         `;
         container.appendChild(div);
       });
     }
 
-    // Function to apply search and season filters
+    // Function to apply search and filter selections
     function applyFilters() {
       const query = document.getElementById('search').value.toLowerCase();
-      // Get checked season checkboxes
-      const checkedBoxes = Array.from(document.querySelectorAll('#seasonFilters input[type="checkbox"]:checked'));
-      const selectedSeasons = checkedBoxes.map(cb => cb.value);
+      const selectedSeason = document.getElementById('seasonFilter').value;
+      const selectedTrait = document.getElementById('traitFilter').value;
       
-      // Filter characters based on query and selected season(s)
       const filtered = characters.filter(character => {
         const matchesQuery = character.name.toLowerCase().includes(query);
-        // If no season is selected, include all seasons.
-        const matchesSeason = selectedSeasons.length === 0 || selectedSeasons.includes(character.season);
-        return matchesQuery && matchesSeason;
+        const matchesSeason = !selectedSeason || character.season === selectedSeason;
+        const matchesTrait = !selectedTrait || character.trait === selectedTrait;
+        return matchesQuery && matchesSeason && matchesTrait;
       });
       
       displayCharacters(filtered);
