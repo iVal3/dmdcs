@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Death May Die Characters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Basic styling */
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    .character {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Death May Die Characters</h1>
+  <input type="text" id="search" placeholder="Search characters..." onkeyup="searchCharacters()">
+  <div id="characterList"></div>
 
+  <script>
+    let characters = [];
+    
+    // Load character data from characters.json
+    fetch('characters.json')
+      .then(response => response.json())
+      .then(data => {
+        characters = data;
+        displayCharacters(characters);
+      })
+      .catch(error => console.error('Error loading character data:', error));
+    
+    // Function to display characters
+    function displayCharacters(list) {
+      const container = document.getElementById('characterList');
+      container.innerHTML = '';
+      list.forEach(character => {
+        const div = document.createElement('div');
+        div.className = 'character';
+        div.innerHTML = `<h2>${character.name}</h2><p>${character.description}</p>`;
+        container.appendChild(div);
+      });
+    }
+    
+    // Function to filter characters based on search query
+    function searchCharacters() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const filtered = characters.filter(character => character.name.toLowerCase().includes(query));
+      displayCharacters(filtered);
+    }
+  </script>
+</body>
+</html>
