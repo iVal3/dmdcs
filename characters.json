@@ -5,8 +5,8 @@
     "traits": ["Arcane Mastery", "Stealth"],
     "description": "Description for character one."
     "images": [
-    <img src="images/Skill-Arcane-Mastery-1.webp" alt="Arcane Mastery">,
-    <img src="images/Skill-Stealth.webp" alt="Stealth">,
+    "images/Skill-Arcane-Mastery-1.webp",
+    "images/Skill-Stealth.webp"
   ]
   },
   {
