@@ -43,18 +43,6 @@
     .character h2 {
       margin-top: 0;
     }
-    /* Styling for the images container */
-    .images {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 10px;
-    }
-    .images img {
-      max-width: 30%;
-      height: auto;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
   </style>
 </head>
 <body>
@@ -121,17 +109,6 @@
       const container = document.getElementById('characterList');
       container.innerHTML = '';
       list.forEach(character => {
-        // Create HTML for images if available
-        let imagesHTML = '';
-        if (character.images && character.images.length > 0) {
-          // Limit to 3 images
-          const imgs = character.images.slice(0, 3);
-          imagesHTML = '<div class="images">';
-          imgs.forEach(url => {
-            imagesHTML += `<img src="${url}" alt="${character.name} image">`;
-          });
-          imagesHTML += '</div>';
-        }
         const div = document.createElement('div');
         div.className = 'character';
         div.innerHTML = `
@@ -139,7 +116,6 @@
           <p><strong>Season:</strong> ${character.season}</p>
           <p><strong>Traits:</strong> ${character.traits.join(', ')}</p>
           <p>${character.description}</p>
-          ${imagesHTML}
         `;
         container.appendChild(div);
       });
@@ -155,6 +131,7 @@
       const filtered = characters.filter(character => {
         const matchesQuery = character.name.toLowerCase().includes(query);
         const matchesSeason = !selectedSeason || character.season === selectedSeason;
+        // Check if traits exist, and if selected trait(s) are included in the character's traits array
         const matchesTrait1 = !selectedTrait1 || (character.traits && character.traits.includes(selectedTrait1));
         const matchesTrait2 = !selectedTrait2 || (character.traits && character.traits.includes(selectedTrait2));
         return matchesQuery && matchesSeason && matchesTrait1 && matchesTrait2;
